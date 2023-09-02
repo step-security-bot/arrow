@@ -96,12 +96,12 @@ jobs:
       UBUNTU: ${{ matrix.ubuntu }}
     steps:
       - name: Checkout Arrow
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           fetch-depth: 0
           submodules: recursive
       - name: Cache Docker Volumes
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
         with:
           path: .docker
           key: ${{ matrix.image }}-${{ hashFiles('cpp/**') }}
@@ -138,7 +138,7 @@ jobs:
     timeout-minutes: 45
     steps:
       - name: Checkout Arrow
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           fetch-depth: 0
           submodules: recursive
@@ -186,7 +186,7 @@ jobs:
           sysctl -a | grep cpu
           sysctl -a | grep "hw.optional"
       - name: Checkout Arrow
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           fetch-depth: 0
           submodules: recursive
@@ -215,7 +215,7 @@ jobs:
         run: |
           echo "cache-dir=$(ccache --get-config cache_dir)" >> $GITHUB_OUTPUT
       - name: Cache ccache
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
         with:
           path: ${{ steps.ccache-info.outputs.cache-dir }}
           key: cpp-ccache-macos-${{ hashFiles('cpp/**') }}
@@ -290,7 +290,7 @@ jobs:
       - name: Install Dependencies
         run: choco install -y --no-progress openssl
       - name: Checkout Arrow
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           fetch-depth: 0
           submodules: recursive
@@ -311,7 +311,7 @@ jobs:
         run: |
           echo "cache-dir=$(ccache --get-config cache_dir)" >> $GITHUB_OUTPUT
       - name: Cache ccache
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
         with:
           path: ${{ steps.ccache-info.outputs.cache-dir }}
           key: cpp-ccache-windows-${{ env.CACHE_VERSION }}-${{ hashFiles('cpp/**') }}
@@ -393,11 +393,11 @@ jobs:
             /d 1 `
             /f
       - name: Checkout Arrow
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           fetch-depth: 0
           submodules: recursive
-      - uses: msys2/setup-msys2@v2
+      - uses: msys2/setup-msys2@27b3aa77f672cb6b3054121cfd80c3d22ceebb1d # v2.20.1
         with:
           msystem: ${{ matrix.msystem_upper }}
           update: true
@@ -405,7 +405,7 @@ jobs:
         shell: msys2 {0}
         run: ci/scripts/msys2_setup.sh cpp
       - name: Cache ccache
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
         with:
           path: ccache
           key: cpp-ccache-${{ matrix.msystem_lower}}-${{ hashFiles('cpp/**') }}
