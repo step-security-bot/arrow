@@ -46,13 +46,13 @@ jobs:
     if: ${{ !contains(github.event.pull_request.title, 'WIP') }}
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           fetch-depth: 0
       - name: Install ninja-build
         run: sudo apt-get install ninja-build
       - name: Install MATLAB
-        uses: matlab-actions/setup-matlab@v1
+        uses: matlab-actions/setup-matlab@5b825d0ad4205ef03dc40ba3b24cad22674e9ca3 # v1.2.4
       - name: Install ccache
         run: sudo apt-get install ccache
       - name: Setup ccache
@@ -63,7 +63,7 @@ jobs:
         shell: bash
         run: echo "cache-dir=$(ccache --get-config cache_dir)" >> $GITHUB_OUTPUT
       - name: Cache ccache
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
         with:
           path: ${{ steps.ccache-info.outputs.cache-dir }}
           key: matlab-ccache-ubuntu-${{ hashFiles('cpp/**', 'matlab/**') }}
@@ -83,7 +83,7 @@ jobs:
           # Add the installation directory to the MATLAB Search Path by
           # setting the MATLABPATH environment variable.
           MATLABPATH: matlab/install/arrow_matlab
-        uses: matlab-actions/run-tests@v1
+        uses: matlab-actions/run-tests@0d908b26fbddf22489c0fcc7f169742618d9c15a # v1.5.1
         with:
           select-by-folder: matlab/test
   macos:
@@ -92,13 +92,13 @@ jobs:
     if: ${{ !contains(github.event.pull_request.title, 'WIP') }}
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           fetch-depth: 0
       - name: Install ninja-build
         run: brew install ninja
       - name: Install MATLAB
-        uses: matlab-actions/setup-matlab@v1
+        uses: matlab-actions/setup-matlab@5b825d0ad4205ef03dc40ba3b24cad22674e9ca3 # v1.2.4
       - name: Install ccache
         run: brew install ccache
       - name: Setup ccache
@@ -109,7 +109,7 @@ jobs:
         shell: bash
         run: echo "cache-dir=$(ccache --get-config cache_dir)" >> $GITHUB_OUTPUT
       - name: Cache ccache
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
         with:
           path: ${{ steps.ccache-info.outputs.cache-dir }}
           key: matlab-ccache-macos-${{ hashFiles('cpp/**', 'matlab/**') }}
@@ -121,7 +121,7 @@ jobs:
           # Add the installation directory to the MATLAB Search Path by
           # setting the MATLABPATH environment variable.
           MATLABPATH: matlab/install/arrow_matlab
-        uses: matlab-actions/run-tests@v1
+        uses: matlab-actions/run-tests@0d908b26fbddf22489c0fcc7f169742618d9c15a # v1.5.1
         with:
           select-by-folder: matlab/test 
   windows:
@@ -130,11 +130,11 @@ jobs:
     if: ${{ !contains(github.event.pull_request.title, 'WIP') }}
     steps:
       - name: Check out repository        
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           fetch-depth: 0
       - name: Install MATLAB
-        uses: matlab-actions/setup-matlab@v1
+        uses: matlab-actions/setup-matlab@5b825d0ad4205ef03dc40ba3b24cad22674e9ca3 # v1.2.4
       - name: Download Timezone Database
         shell: bash
         run: ci/scripts/download_tz_database.sh
@@ -149,7 +149,7 @@ jobs:
         shell: bash
         run: echo "cache-dir=$(ccache --get-config cache_dir)" >> $GITHUB_OUTPUT
       - name: Cache ccache
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
         with:
           path: |
             ${{ steps.ccache-info.outputs.cache-dir }}
@@ -165,6 +165,6 @@ jobs:
           # Add the installation directory to the MATLAB Search Path by
           # setting the MATLABPATH environment variable.
           MATLABPATH: matlab/install/arrow_matlab
-        uses: matlab-actions/run-tests@v1
+        uses: matlab-actions/run-tests@0d908b26fbddf22489c0fcc7f169742618d9c15a # v1.5.1
         with:
           select-by-folder: matlab/test 
